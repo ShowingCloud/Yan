@@ -1,6 +1,13 @@
 {
   "name": "@algedi/cms",
   "version": "0.1.0",
+  "description": "Next.js 14 CMS for Algedi Multi-Tenant E-Commerce Platform",
+  "author": "WANG Guoqin",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/algedi/cms.git"
+  },
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,12 +17,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@algedi/ai-editor": "workspace:*",
+    "@algedi/ai-editor": "^0.1.0",
     "@radix-ui/react-slot": "^1.0.2",
     "next": "14.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "@algedi/ai-editor": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.11.5",
