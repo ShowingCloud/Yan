@@ -1,0 +1,45 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../src/generated/client"
+  previewFeatures = []
+}
+
+model SiteConfig {
+  id            String   @id @default(uuid())
+  organizationId String  @unique // Logical Link (just a string, NO @relation) - one config per org
+  domain        String?
+  name          String?
+  description   String?  @db.Text
+  settings      Json?    // Theme tokens, logo, footer config, etc.
+  metadata      Json?    // Additional site configuration
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("cms_site_configs")
+  @@index([organizationId])
+}
+
+model PageLayout {
+  id            String   @id @default(uuid())
+  organizationId String  // Logical Link (just a string, NO @relation)
+  path          String   // e.g., "/about", "/home"
+  title         String?
+  description   String?  @db.Text
+  schema        Json     // The internal representation of the page tree
+  isPublished   Boolean  @default(false)
+  metadata      Json?    // Additional page metadata
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("cms_page_layouts")
+  @@index([organizationId])
+  @@index([path])
+  @@index([isPublished])
+  @@unique([organizationId, path])
+}
+
